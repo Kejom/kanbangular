@@ -1,0 +1,28 @@
+
+<div *ngIf="user">
+    <h2 class="header">Edit user {{user.email}}</h2>
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-item">
+            <input type="text" matInput  required  [(ngModel)]="user.firstName" name="firstname">
+            <mat-label>First Name</mat-label>
+            <mat-error>First name cannot be empty.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-item">
+            <input type="text" matInput  required  [(ngModel)]="user.lastName" name="lastname">
+            <mat-label>Last Name</mat-label>
+            <mat-error>Last name cannot be empty.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-item">
+            <mat-label>Role</mat-label>
+            <mat-select [(value)]="user.role" name="role" required>
+                <mat-option value="admin">Admin</mat-option>
+                <mat-option value="devops">Devops</mat-option>
+                <mat-option value="developer">Developer</mat-option>
+            </mat-select>
+
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit" [disabled]="myForm.invalid" class="form-item">Save Changes</button>
+        <button mat-raised-button color="secondary" class="form-item" routerLink="/users">Cancel</button>
+    </form>
+</div>
+

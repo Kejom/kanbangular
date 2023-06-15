@@ -1,0 +1,13 @@
+.login-body{
+    padding: 10px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-item{
+    min-width: 300px;
+    margin: 5px;
+}

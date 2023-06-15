@@ -1,0 +1,38 @@
+<div class="register-body">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-row form-item">
+            <mat-form-field class="form-item">
+                <input type="text" matInput  required formControlName="firstName">
+                <mat-label>First Name</mat-label>
+                <mat-error>Please enter your first name.</mat-error>
+
+            </mat-form-field>
+            <mat-form-field class="form-item">
+                <input type="text" matInput  required formControlName="lastName">
+                <mat-label>Last Name</mat-label>
+                <mat-error>Please enter your last name.</mat-error>
+            </mat-form-field>
+        </div>
+        <mat-form-field class="email-field form-item">
+            <input type="email" matInput  required formControlName="email">
+            <mat-label>Email</mat-label>
+            <mat-error>Please enter a valid email.</mat-error>
+
+        </mat-form-field>
+        <div class="form-row">
+            <mat-form-field class="form-item">
+                <input type="password" matInput required formControlName="password">
+                <mat-label>Password</mat-label>
+                <mat-error>Please enter your password</mat-error>
+            </mat-form-field> 
+            <mat-form-field class="form-item">
+                <input type="password" matInput required formControlName="confirmPassword">
+                <mat-label>Confirm Password</mat-label>
+                <mat-error>Please confirm your password</mat-error>
+            </mat-form-field> 
+        </div>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid" class="form-button">Create Account</button>
+
+    </form>
+</div>

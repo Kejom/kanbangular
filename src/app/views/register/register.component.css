@@ -1,0 +1,33 @@
+.register-body{
+    padding: 10px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: stretch;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    align-content:stretch;
+
+}
+
+.form-item{
+    margin: 5px;
+}
+
+.email-field{
+    min-width: 424px;
+}
+
+.form-button{
+    margin: 5px;
+    min-width: 300px;
+    min-height: 50px;
+    font-size: 20px
+}
+
+
