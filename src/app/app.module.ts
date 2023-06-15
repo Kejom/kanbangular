@@ -20,6 +20,7 @@ import { ProjectBoardComponent } from './views/project-board/project-board.compo
 import { ProjectService } from './services/projects.service';
 import { ProjectsListComponent } from './components/projects-list/projects-list.component';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
+import { ProjectAccessFormComponent } from './components/project-access-form/project-access-form.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ProjectFormComponent } from './components/project-form/project-form.com
     ProjectsComponent,
     ProjectBoardComponent,
     ProjectsListComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    ProjectAccessFormComponent
   ],
   imports: [
     BrowserModule,

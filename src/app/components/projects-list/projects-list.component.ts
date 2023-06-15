@@ -1,17 +1,18 @@
-import { Component, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs'
 import { MatTableDataSource } from "@angular/material/table"
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { Project } from 'src/app/models/project.model';
 import { ProjectService } from 'src/app/services/projects.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects-list',
   templateUrl: './projects-list.component.html',
   styleUrls: ['./projects-list.component.css']
 })
-export class ProjectsListComponent implements AfterViewInit, OnDestroy {
+export class ProjectsListComponent implements OnInit, AfterViewInit, OnDestroy {
   dataSource = new MatTableDataSource<Project>();
   displayedColumns = ['name', 'description', 'actions'];
   projectSubscription: Subscription;
@@ -19,9 +20,13 @@ export class ProjectsListComponent implements AfterViewInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort | null = null;
   @ViewChild(MatPaginator) paginator: MatPaginator | null = null;
 
-  constructor(private projectService: ProjectService) { 
+  constructor(private projectService: ProjectService, private router: Router) { 
     this.projectSubscription = projectService.projectsChanged.subscribe(projects => {this.dataSource.data = projects})
-    this.dataSource.data = projectService.getProjects();
+    
+  }
+
+  async ngOnInit(){
+    this.dataSource.data = await this.projectService.getProjects();
   }
 
   ngAfterViewInit(): void {
@@ -35,6 +40,7 @@ export class ProjectsListComponent implements AfterViewInit, OnDestroy {
 
   onSelect(projectId: string){
     this.projectService.selectProject(projectId);
+    this.router.navigate(['/projects/' + projectId])
   }
 
   onRemove(projectId: string){

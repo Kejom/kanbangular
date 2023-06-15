@@ -32,7 +32,7 @@ export class ProjectFormComponent {
   }
 
   async Edit(){
-
+    console.log("Hello from Edit")
   }
 
 }

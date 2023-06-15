@@ -1,0 +1,43 @@
+<div>
+    <div class="inputs">
+        <mat-form-field class="table-input">
+            <input matInput type="text" placeholder="Filter" (keyup)="onFilterInputChanage($event.target)">
+        </mat-form-field>
+        <mat-form-field class="table-input">
+            <mat-select name="user" [(ngModel)]="selectedUserId">
+                <mat-option *ngFor="let user of availableUsers" [value]="user.id">{{user.email}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-fab color="primary" (click)="onAdd()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="firstName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.firstName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lastName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.lastName}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.email}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let element" class="button-cell">
+            <button class="table-button" mat-raised-button color="accent" (click)="onRemove(element.id)">Remove</button>
+        </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div>

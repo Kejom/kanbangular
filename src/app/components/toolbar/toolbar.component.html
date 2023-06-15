@@ -2,7 +2,7 @@
     <button mat-flat-button color="primary" routerLink="/" class="nav-button">Kanbangular</button>    
     <span class="spacer"></span>
     
-    <button *ngIf="selectedProject" mat-flat-button color="primary" routerLink="/projects" class="nav-button">{{selectedProject.name}} Board</button>
+    <button *ngIf="selectedProject" mat-flat-button color="primary" [routerLink]="'/projects/' + selectedProject.id" class="nav-button">{{selectedProject.name}} Board</button>
     <button *ngIf="isLogged" mat-flat-button color="primary" routerLink="/projects" class="nav-button">Projects</button>
     <button *ngIf="isAdmin" mat-flat-button color="primary" routerLink="/users" class="nav-button">Manage Users</button>
     <button *ngIf="!isLogged" mat-flat-button color="primary" routerLink="/login" class="nav-button">Login</button>
