@@ -1,0 +1,17 @@
+<div class="container">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-item">
+            <input matInput  type="text" required  name="name" [(ngModel)]="project.name">
+            <mat-label>Project Name</mat-label>
+            <mat-error>Project Name cannot be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-item">
+            <textarea matInput  required name="description" rows="8" [(ngModel)]="project.description"></textarea>
+            <mat-label>Project Description</mat-label>
+            <mat-error>Project Description cannot be empty!</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="myForm.invalid" class="form-item">{{buttonLabel}}</button>
+    </form>
+</div>

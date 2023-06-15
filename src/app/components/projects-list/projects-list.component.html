@@ -1,0 +1,32 @@
+<div class="container">
+    <mat-form-field class="filter-input">
+        <input matInput type="text" placeholder="Filter" (keyup)="onFilterInputChanage($event.target)">
+    </mat-form-field>
+    <mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Project Name</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Project Description</mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element" class="button-cell">
+                <button class="table-button" mat-raised-button color="primary" (click)="onSelect(element.id)">Select</button>
+                <button class="table-button" mat-raised-button color="accent" (click)="onRemove(element.id)">Remove</button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+    <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+</div>

@@ -1,1 +1,5 @@
-<p>projects works!</p>
+<mat-tab-group>
+    <mat-tab label="Projects List"><app-projects-list></app-projects-list></mat-tab>
+    <mat-tab *ngIf="isDevops" label="Add New Project"><app-project-form mode="create"></app-project-form></mat-tab>
+
+  </mat-tab-group>

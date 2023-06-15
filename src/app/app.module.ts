@@ -18,6 +18,8 @@ import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { ProjectsComponent } from './views/projects/projects.component';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
 import { ProjectService } from './services/projects.service';
+import { ProjectsListComponent } from './components/projects-list/projects-list.component';
+import { ProjectFormComponent } from './components/project-form/project-form.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { ProjectService } from './services/projects.service';
     UsersPanelComponent,
     UserEditComponent,
     ProjectsComponent,
-    ProjectBoardComponent
+    ProjectBoardComponent,
+    ProjectsListComponent,
+    ProjectFormComponent
   ],
   imports: [
     BrowserModule,

@@ -27,7 +27,7 @@
 
         <ng-container matColumnDef="remove">
             <mat-header-cell *matHeaderCellDef></mat-header-cell>
-            <mat-cell *matCellDef="let element">
+            <mat-cell *matCellDef="let element" class="button-cell">
                 <button [routerLink]="'/users/' + element.id" class="table-button" mat-raised-button color="primary">Edit</button>
                 <button class="table-button" mat-raised-button color="accent">Remove</button>
             </mat-cell>
