@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/project.model';
 import { ProjectService } from 'src/app/services/projects.service';
 import { MatSnackBar} from "@angular/material/snack-bar"
@@ -8,15 +8,22 @@ import { MatSnackBar} from "@angular/material/snack-bar"
   templateUrl: './project-form.component.html',
   styleUrls: ['./project-form.component.css']
 })
-export class ProjectFormComponent {
+export class ProjectFormComponent implements OnInit {
   @Input() mode!: "edit" | "create"
   @Input() projectId?: string;
-  buttonLabel: string;
-  project: Project;
+  buttonLabel!: string;
+  project!: Project;
 
   constructor(private projectService: ProjectService, private snackBar: MatSnackBar) {
+
+  }
+
+  ngOnInit(): void {
     this.buttonLabel = this.mode === "edit" ? "Save Changes" : "Create Project";
     this.project = {name: "", description: "", id: ""};
+
+    if(this.mode === "edit" && this.projectService.selectedProject)
+      this.project = {...this.projectService.selectedProject}
   }
 
   onSubmit(){
@@ -32,7 +39,9 @@ export class ProjectFormComponent {
   }
 
   async Edit(){
-    console.log("Hello from Edit")
+    console.log(this.project);
+    await this.projectService.updateProject({... this.project});
+    this.snackBar.open("Project updated succesfully!", "Ok");
   }
 
 }

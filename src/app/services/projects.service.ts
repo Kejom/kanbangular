@@ -7,7 +7,7 @@ import { AuthService } from "./auth.service";
 import { ProjectAccess } from "../models/project-access.model";
 
 @Injectable()
-export class ProjectService{
+export class ProjectService {
 
     private store: Firestore;
     private projectCollection = "projects";
@@ -24,22 +24,21 @@ export class ProjectService{
     }
 
     async getProjects() {
-        if(this.authService.isAdmin() || this.authService.isDevops())
+        if (this.authService.isAdmin() || this.authService.isDevops())
             return this.projects.slice();
         return this.getProjectsByAccess()
     }
 
 
-
-    private async getProjectsByAccess(){
+    private async getProjectsByAccess() {
         let userId = this.authService.loggedUser?.id;
 
-        if(!userId)
+        if (!userId)
             return [];
 
         let userAccesses = await this.getProjectAccessByUserId(userId);
         let projectIds = userAccesses.map(a => a.projectId);
-        return this.projects.filter(p =>  projectIds.includes(p.id));
+        return this.projects.filter(p => projectIds.includes(p.id));
     }
 
     async initProjects() {
@@ -59,6 +58,25 @@ export class ProjectService{
         this.triggerProjectsChanged();
     }
 
+    async updateProject(project: Project) {
+        let projectRef = doc(this.store, this.projectCollection, project.id);
+
+        let indexOfProject = this.projects.findIndex(p => p.id === project.id);
+
+        if (indexOfProject < 0)
+            return;
+
+        await setDoc(projectRef, project);
+
+        this.projects[indexOfProject] = project;
+        this.triggerProjectsChanged();
+
+        if(this.selectedProject!.id === project.id){
+            this.selectedProject = project;
+            this.selectedProjectChanged.next(this.selectedProject);
+        }
+    }
+
     async removeProject(projectId: string) {
         let projectRef = doc(this.store, this.projectCollection, projectId);
         await deleteDoc(projectRef);
@@ -66,27 +84,27 @@ export class ProjectService{
         this.triggerProjectsChanged();
     }
 
-    async getProjectAccessByUserId(userId: string){
+    async getProjectAccessByUserId(userId: string) {
         const q = query(collection(this.store, this.projectAccessCollection), where('userId', '==', userId));
         const snapshot = await getDocs(q);
         let accesses: ProjectAccess[] = [];
-        snapshot.forEach(doc => {accesses.push(doc.data() as ProjectAccess)});
+        snapshot.forEach(doc => { accesses.push(doc.data() as ProjectAccess) });
         return accesses;
     }
 
-    async getProjectAccessByProjectId(projectId: string){
+    async getProjectAccessByProjectId(projectId: string) {
         const q = query(collection(this.store, this.projectAccessCollection), where('projectId', '==', projectId));
         const snapshot = await getDocs(q);
         let accesses: ProjectAccess[] = [];
-        snapshot.forEach(doc => {accesses.push(doc.data() as ProjectAccess)});
+        snapshot.forEach(doc => { accesses.push(doc.data() as ProjectAccess) });
         return accesses;
     }
 
-    async addProjectAccess(projectAccess: ProjectAccess){
-         await addDoc(collection(this.store, this.projectAccessCollection), projectAccess);
+    async addProjectAccess(projectAccess: ProjectAccess) {
+        await addDoc(collection(this.store, this.projectAccessCollection), projectAccess);
     }
 
-    async removeProjectAccess(projectAccess: ProjectAccess){
+    async removeProjectAccess(projectAccess: ProjectAccess) {
         const q = query(collection(this.store, this.projectAccessCollection), where('userId', '==', projectAccess.userId), where('projectId', '==', projectAccess.projectId));
         const snapshot = await getDocs(q);
 
@@ -104,7 +122,7 @@ export class ProjectService{
 
     }
 
-    deselectProject(){
+    deselectProject() {
         this.selectedProject = null;
         this.selectedProjectChanged.next(this.selectedProject);
     }
