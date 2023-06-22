@@ -21,6 +21,11 @@ import { ProjectService } from './services/projects.service';
 import { ProjectsListComponent } from './components/projects-list/projects-list.component';
 import { ProjectFormComponent } from './components/project-form/project-form.component';
 import { ProjectAccessFormComponent } from './components/project-access-form/project-access-form.component';
+import { FeatureListComponent } from './components/feature-list/feature-list.component';
+import { FeatureFormComponent } from './components/feature-form/feature-form.component';
+import { FeatureTabComponent } from './components/feature-tab/feature-tab.component';
+import { FeatureService } from './services/feature.service';
+import { FeatureComponent } from './views/feature/feature.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,11 @@ import { ProjectAccessFormComponent } from './components/project-access-form/pro
     ProjectBoardComponent,
     ProjectsListComponent,
     ProjectFormComponent,
-    ProjectAccessFormComponent
+    ProjectAccessFormComponent,
+    FeatureListComponent,
+    FeatureFormComponent,
+    FeatureTabComponent,
+    FeatureComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +54,7 @@ import { ProjectAccessFormComponent } from './components/project-access-form/pro
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [FirebaseService, AuthService, UsersService, ProjectService],
+  providers: [FirebaseService, AuthService, UsersService, ProjectService, FeatureService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

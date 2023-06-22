@@ -1,0 +1,28 @@
+<div class="container">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="form-item">
+            <input matInput type="text" required name="name" [(ngModel)]="newFeature.name">
+            <mat-label>Feature Name</mat-label>
+            <mat-error>Feature Name cannot be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-item">
+            <textarea matInput required name="description" rows="8" [(ngModel)]="newFeature.description"></textarea>
+            <mat-label>Feature Description</mat-label>
+            <mat-error>Feature Description cannot be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form-item">
+            <mat-label>Priority</mat-label>
+            <mat-select [(value)]="newFeature.priority" name="role" required>
+                <mat-option [value]="1">1: Major</mat-option>
+                <mat-option [value]="2">2: High</mat-option>
+                <mat-option [value]="3">3: Medium</mat-option>
+                <mat-option [value]="4">4: Low</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" type="submit" [disabled]="myForm.invalid"
+            class="form-item">Create</button>
+    </form>
+</div>

@@ -1,0 +1,41 @@
+<form *ngIf="feature" #myForm="ngForm" class="container" (ngSubmit)="onSubmit()">    
+    <div class="column " style="flex: 3">
+        <mat-form-field>
+            <input matInput type="text" required name="name" [(ngModel)]="feature.name">
+            <mat-label>Feature Name</mat-label>
+            <mat-error>Feature Name cannot be empty!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <textarea matInput required name="description" rows="7" [(ngModel)]="feature.description"></textarea>
+            <mat-label>Feature Description</mat-label>
+            <mat-error>Feature Description cannot be empty!</mat-error>
+        </mat-form-field>
+    </div>
+    <div class="column" style="flex: 1">
+        <mat-form-field *ngIf="owner">
+            <input matInput readonly="" name="owner"  [(ngModel)]="owner.email">
+            <mat-label>Feature Owner</mat-label>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select [(value)]="feature.status" name="status" required>
+                <mat-option value="todo">To-Do</mat-option>
+                <mat-option value="doing">Doing</mat-option>
+                <mat-option value="done">Done</mat-option>
+
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Priority</mat-label>
+            <mat-select [(value)]="feature.priority" name="role" required>
+                <mat-option [value]="1">1: Major</mat-option>
+                <mat-option [value]="2">2: High</mat-option>
+                <mat-option [value]="3">3: Medium</mat-option>
+                <mat-option [value]="4">4: Low</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" type="submit">Save Changes</button>
+    </div>
+
+</form>

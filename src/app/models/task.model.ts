@@ -4,11 +4,11 @@ export interface Task{
     description: string;
     priority: number;
     featureId: string;
-    expectedWorkTime: number;
+    expectedWorkTime?: number;
     status: "todo" | "doing" | "done"
     created: Date;
-    started: Date;
-    ended: Date;
-    assignedUserId: string;
+    started?: Date;
+    ended?: Date;
+    assignedUserId?: string;
     createdById: string;
 }
