@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core"
 import { Subject } from "rxjs"
 import { FirebaseService } from "./firebase.service";
-import { Firestore, collection, getDocs, query, doc, getDoc, setDoc, deleteDoc, QueryDocumentSnapshot, addDoc, where  } from "firebase/firestore";
+import { Firestore, collection, getDocs, query, doc, getDoc, setDoc, deleteDoc, addDoc, where  } from "firebase/firestore";
 import { Feature } from "../models/feature.model";
 
 

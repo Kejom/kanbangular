@@ -1,0 +1,46 @@
+<div class="container">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="column" style="flex: 3">
+            <mat-form-field class="form-item">
+                <input matInput type="text" required name="name" [(ngModel)]="newTask.name">
+                <mat-label>Task Name</mat-label>
+                <mat-error>Task Name cannot be empty!</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="form-item">
+                <textarea matInput required name="description" rows="8" [(ngModel)]="newTask.description"></textarea>
+                <mat-label>Task Description</mat-label>
+                <mat-error>Task Description cannot be empty!</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="column" style="flex: 1">
+            <mat-form-field class="form-item">
+                <input matInput type="number" name="estimated-time" [(ngModel)]="newTask.expectedWorkTime" min="0">
+                <mat-label>Expected Work Time (in hours)</mat-label>
+            </mat-form-field>
+    
+            <mat-form-field class="form-item">
+                <mat-label>Priority</mat-label>
+                <mat-select [(value)]="newTask.priority" name="role" required>
+                    <mat-option [value]="1">1: Major</mat-option>
+                    <mat-option [value]="2">2: High</mat-option>
+                    <mat-option [value]="3">3: Medium</mat-option>
+                    <mat-option [value]="4">4: Low</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="featureId" class="form-item">
+                <mat-label>Parent Feature</mat-label>
+                <mat-select [(value)]="newTask.featureId" name="feature-id" disabled>
+                    <mat-option [value]="featureId">{{featureName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+    
+            <button mat-raised-button color="primary" type="submit" [disabled]="myForm.invalid"
+                class="form-item">Create</button>
+        </div>
+
+
+
+    </form>
+</div>

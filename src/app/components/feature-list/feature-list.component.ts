@@ -36,10 +36,6 @@ export class FeatureListComponent implements AfterViewInit, OnDestroy {
     this.featuresSubscription.unsubscribe();
   }
 
-  onOpen(featureId: string){
-    console.log(featureId);
-  }
-
   onRemove(featureId: string){
     this.featureService.removeFeature(featureId);
   }

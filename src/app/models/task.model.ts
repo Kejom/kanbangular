@@ -4,6 +4,7 @@ export interface Task{
     description: string;
     priority: number;
     featureId: string;
+    projectId: string;
     expectedWorkTime?: number;
     status: "todo" | "doing" | "done"
     created: Date;

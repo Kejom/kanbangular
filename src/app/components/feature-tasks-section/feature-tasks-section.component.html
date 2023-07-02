@@ -1,0 +1,8 @@
+<mat-tab-group>
+    <mat-tab label="Tasks">
+        <app-task-list [tasks]="tasks" (onRemoveTask)="onRemoveTask($event)"></app-task-list>
+    </mat-tab>
+    <mat-tab label="Create new Task">
+        <app-task-form [featureId]="featureId" [featureName]="featureName" (onAddTask)="onAddTask($event)"></app-task-form>
+    </mat-tab>
+</mat-tab-group>

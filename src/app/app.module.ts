@@ -26,6 +26,12 @@ import { FeatureFormComponent } from './components/feature-form/feature-form.com
 import { FeatureTabComponent } from './components/feature-tab/feature-tab.component';
 import { FeatureService } from './services/feature.service';
 import { FeatureComponent } from './views/feature/feature.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { FeatureTasksSectionComponent } from './components/feature-tasks-section/feature-tasks-section.component';
+import { TaskBoardComponent } from './components/task-board/task-board.component';
+import { TasksService } from './services/tasks.service';
+import { TaskTabComponent } from './components/task-tab/task-tab.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +50,12 @@ import { FeatureComponent } from './views/feature/feature.component';
     FeatureListComponent,
     FeatureFormComponent,
     FeatureTabComponent,
-    FeatureComponent
+    FeatureComponent,
+    TaskFormComponent,
+    TaskListComponent,
+    FeatureTasksSectionComponent,
+    TaskBoardComponent,
+    TaskTabComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +65,7 @@ import { FeatureComponent } from './views/feature/feature.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [FirebaseService, AuthService, UsersService, ProjectService, FeatureService],
+  providers: [FirebaseService, AuthService, UsersService, ProjectService, FeatureService, TasksService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
