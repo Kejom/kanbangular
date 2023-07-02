@@ -29,12 +29,19 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field *ngIf="featureId" class="form-item">
+            <mat-form-field class="form-item">
                 <mat-label>Parent Feature</mat-label>
-                <mat-select [(value)]="newTask.featureId" name="feature-id" disabled>
+                <mat-select *ngIf="featureId;else selectFeature" [(value)]="newTask.featureId" name="feature-id" disabled>
                     <mat-option [value]="featureId">{{featureName}}</mat-option>
                 </mat-select>
+                <ng-template #selectFeature>
+                    <mat-select  [(value)]="newTask.featureId" name="feature-id" required>
+                        <mat-option *ngFor="let feature of availableFeatures" [value]="feature.id" >{{feature.name}}</mat-option>
+                    </mat-select>
+                </ng-template>
+
             </mat-form-field>
+
     
             <button mat-raised-button color="primary" type="submit" [disabled]="myForm.invalid"
                 class="form-item">Create</button>
