@@ -32,6 +32,9 @@ import { FeatureTasksSectionComponent } from './components/feature-tasks-section
 import { TaskBoardComponent } from './components/task-board/task-board.component';
 import { TasksService } from './services/tasks.service';
 import { TaskTabComponent } from './components/task-tab/task-tab.component';
+import {CdkDropList, CdkDrag, CdkDropListGroup} from '@angular/cdk/drag-drop';
+import { TaskCardComponent } from './components/task-card/task-card.component';
+import { TaskComponent } from './views/task/task.component'
 
 @NgModule({
   declarations: [
@@ -55,7 +58,9 @@ import { TaskTabComponent } from './components/task-tab/task-tab.component';
     TaskListComponent,
     FeatureTasksSectionComponent,
     TaskBoardComponent,
-    TaskTabComponent
+    TaskTabComponent,
+    TaskCardComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,10 @@ import { TaskTabComponent } from './components/task-tab/task-tab.component';
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CdkDropList,
+    CdkDrag,
+    CdkDropListGroup
   ],
   providers: [FirebaseService, AuthService, UsersService, ProjectService, FeatureService, TasksService],
   bootstrap: [AppComponent]

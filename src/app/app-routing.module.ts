@@ -9,6 +9,7 @@ import { UserEditComponent } from './views/user-edit/user-edit.component';
 import { ProjectsComponent } from './views/projects/projects.component';
 import { ProjectBoardComponent } from './views/project-board/project-board.component';
 import { FeatureComponent } from './views/feature/feature.component';
+import { TaskComponent } from './views/task/task.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'users/:id', component: UserEditComponent, canActivate: [authGuard]},
   {path: 'projects', component: ProjectsComponent, canActivate: [authGuard]},
   {path: 'projects/:id', component: ProjectBoardComponent, canActivate: [authGuard]},
-  {path: 'projects/:projectid/feature/:featureid', component: FeatureComponent, canActivate: [authGuard]}
+  {path: 'projects/:projectid/feature/:featureid', component: FeatureComponent, canActivate: [authGuard]},
+  {path: 'projects/:projectid/feature/:featureid/task/:taskid', component: TaskComponent, canActivate: [authGuard]}
 ];
 
 @NgModule({

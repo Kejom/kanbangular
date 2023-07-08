@@ -1,1 +1,40 @@
-<p>task-board works!</p>
+<div cdkDropListGroup class="board-container">
+    <div class="example-container">
+      <h2 class="column-header">To do</h2>
+  
+      <div
+      id="todo"
+        cdkDropList
+        [cdkDropListData]="todo"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <app-task-card *ngFor="let task of todo" cdkDrag [task]="task"></app-task-card>
+      </div>
+    </div>
+
+    <div class="example-container">
+        <h2 class="column-header">Doing</h2>
+    
+        <div
+        id="doing"
+          cdkDropList
+          [cdkDropListData]="doing"
+          class="example-list"
+          (cdkDropListDropped)="drop($event)">
+          <app-task-card *ngFor="let task of doing" cdkDrag [task]="task"></app-task-card>
+        </div>
+      </div>
+  
+    <div class="example-container">
+      <h2 class="column-header">Done</h2>
+  
+      <div
+        id="done"
+        cdkDropList
+        [cdkDropListData]="done"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)">
+        <app-task-card *ngFor="let task of done" cdkDrag [task]="task"></app-task-card>
+      </div>
+    </div>
+  </div>

@@ -13,7 +13,7 @@ export class FeatureTasksSectionComponent implements OnInit {
  @Input({required: true}) featureName!: string
  tasks: Task[] = [];
 
- constructor(private tasksService: TasksService,private snackbar: MatSnackBar){}
+ constructor(private tasksService: TasksService, private snackbar: MatSnackBar){}
 
  ngOnInit(): void {
    this.initTasks();
@@ -21,7 +21,6 @@ export class FeatureTasksSectionComponent implements OnInit {
 
  async initTasks(){
   this.tasks = await this.tasksService.getByFeatureId(this.featureId);
-  console.log(this.tasks);
 }
 
 async onAddTask(task: Task){
