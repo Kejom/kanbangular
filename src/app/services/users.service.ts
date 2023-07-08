@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core"
 import { FirebaseService } from "./firebase.service";
-import { Firestore, collection, getDocs, query, doc, getDoc, setDoc, deleteDoc } from "firebase/firestore";
+import { Firestore, collection, getDocs, query, doc, getDoc, setDoc, deleteDoc, where } from "firebase/firestore";
 import { User } from "../models/user.model";
+import { ProjectAccess } from "../models/project-access.model";
 
 @Injectable()
 export class UsersService{
     private storage: Firestore;
     private usersCollection = "users";
+    private projectAccessCollection = "projectAccesses"
     private userCache: {[id: string]: User} = {}
 
     constructor(private firebaseService: FirebaseService){
@@ -35,6 +37,22 @@ export class UsersService{
         user.id = snapshot.id;
         this.userCache[user.id] = user;
         return user
+    }
+
+    async getUsersByProjectId(projectId: string){
+        const q = query(collection(this.storage, this.projectAccessCollection), where('projectId', '==', projectId));
+        const snapshot = await getDocs(q);
+        let accesses: ProjectAccess[] = [];
+        snapshot.forEach(doc => { accesses.push(doc.data() as ProjectAccess) });
+        let users: User[] = [];
+
+        for (let i = 0; i< accesses.length; i++) {
+            let userId = accesses[i].userId;
+            let user = await this.getUser(userId);
+            users.push(user);
+        }
+
+        return users;
     }
 
     async updateUser(user: User){

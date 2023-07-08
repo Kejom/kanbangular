@@ -45,8 +45,17 @@ export class TasksService {
     async get(taskId: string){
         let taskRef = doc(this.store, this.tasksCollection, taskId);
         let snapshot = await getDoc(taskRef);
-        let task = snapshot.data() as Task;
+        let snapshotData = snapshot.data() as any;
+        let task = snapshotData as Task;
+        
         task.id = snapshot.id;
+        task.created = snapshotData.created.toDate();
+
+        if(task.started)
+            task.started = snapshotData.started.toDate();
+        if(task.ended)
+            task.ended = snapshotData.ended.toDate();
+
         return task;
     }
 

@@ -30,6 +30,13 @@
             </mat-form-field>
 
             <mat-form-field class="form-item">
+                <mat-label>Assigned To</mat-label>
+                <mat-select [(value)]="newTask.assignedUserId">
+                    <mat-option *ngFor="let user of availableUsers" [value]="user.id">{{user.firstName}} {{user.lastName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
                 <mat-label>Parent Feature</mat-label>
                 <mat-select *ngIf="featureId;else selectFeature" [(value)]="newTask.featureId" name="feature-id" disabled>
                     <mat-option [value]="featureId">{{featureName}}</mat-option>

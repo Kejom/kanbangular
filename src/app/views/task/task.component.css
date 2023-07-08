@@ -1,0 +1,19 @@
+form {
+    display: flex;
+    margin-top: 20px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.header{
+    text-align: center;
+    margin: 10px;
+}
+
+.form-item {
+    margin: 5px;
+}

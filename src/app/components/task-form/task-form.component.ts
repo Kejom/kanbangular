@@ -5,6 +5,8 @@ import { Task } from 'src/app/models/task.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Feature } from 'src/app/models/feature.model';
 import { FeatureService } from 'src/app/services/feature.service';
+import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-task-form',
@@ -19,15 +21,17 @@ export class TaskFormComponent implements OnInit {
   projectId: string;
   newTask!: Task;
   availableFeatures: Feature[] = [];
+  availableUsers: User[] = [];
   featuresSubscription: Subscription;
 
-  constructor(private projectService: ProjectService, private featureService: FeatureService, private authService: AuthService){
+  constructor(private projectService: ProjectService, private featureService: FeatureService, private authService: AuthService, private usersService: UsersService){
     this.projectId = projectService.selectedProject!.id;
     this.featuresSubscription = featureService.featuresChanged.subscribe(features => this.availableFeatures = features);
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.formInit();
+    this.availableUsers = await this.usersService.getUsersByProjectId(this.projectId);
   }
 
 

@@ -1,1 +1,75 @@
-<p>task works!</p>
+<div *ngIf="task" class="container">
+    <form #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="column" style="flex: 3">
+            <mat-form-field class="form-item">
+                <input matInput type="text" required name="name" [(ngModel)]="task.name" readonly="">
+                <mat-label>Task Name</mat-label>
+                <mat-error>Task Name cannot be empty!</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
+                <textarea matInput required name="description" rows="8" [(ngModel)]="task.description"></textarea>
+                <mat-label>Task Description</mat-label>
+                <mat-error>Task Description cannot be empty!</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="column" style="flex: 1">
+            <mat-form-field class="form-item">
+                <input matInput type="number" name="estimated-time" [(ngModel)]="task.expectedWorkTime" min="0">
+                <mat-label>Expected Work Time (in hours)</mat-label>
+            </mat-form-field>
+
+
+            <mat-form-field class="form-item">
+                <mat-label>Priority</mat-label>
+                <mat-select [(value)]="task.priority" name="role" required>
+                    <mat-option [value]="1">1: Major</mat-option>
+                    <mat-option [value]="2">2: High</mat-option>
+                    <mat-option [value]="3">3: Medium</mat-option>
+                    <mat-option [value]="4">4: Low</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
+                <mat-label>Assigned To</mat-label>
+                <mat-select [(value)]="task.assignedUserId">
+                    <mat-option *ngFor="let user of availableUsers" [value]="user.id">{{user.firstName}}
+                        {{user.lastName}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-item" *ngIf="featureName">
+                <mat-label>Parent Feature</mat-label>
+                <mat-select [(value)]="task.featureId" name="feature-id" disabled>
+                    <mat-option [value]="task.featureId">{{featureName}}</mat-option>
+                </mat-select>
+
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
+                <input matInput type="datetime" required name="created" [value]="task.created" readonly>
+
+                <mat-label>Created</mat-label>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="task.started" class="form-item">
+                <input matInput type="datetime" required name="started" [value]="task.started" readonly="">
+                <mat-label>Started</mat-label>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="task.ended" class="form-item">
+                <input matInput type="datetime" required name="ended" [value]="task.ended" readonly="">
+                <mat-label>Ended</mat-label>
+
+            </mat-form-field>
+
+
+            <button mat-raised-button color="primary" type="submit" [disabled]="myForm.invalid" class="form-item">Save
+                Changes</button>
+            <button mat-raised-button color="accent" type="button" class="form-item" (click)="onRemove()">Remove</button>
+        </div>
+
+
+
+    </form>
+</div>
