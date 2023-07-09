@@ -22,6 +22,7 @@ export class TaskComponent implements OnInit {
   task?: Task;
   availableUsers: User[] = [];
   featureName: string = "";
+  createdByName: string = "";
 
   constructor(
     private route: ActivatedRoute,
@@ -45,6 +46,8 @@ export class TaskComponent implements OnInit {
     this.availableUsers = await this.usersService.getUsersByProjectId(this.projectId!);
     const feature = await this.featureService.getFeature(this.featureId!);
     this.featureName = feature.name;
+    const createdBy = await this.usersService.getUser(this.task.createdById);
+    this.createdByName = `${createdBy.firstName} ${createdBy.lastName}`;
     console.log(this.task);
   }
 

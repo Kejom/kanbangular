@@ -1,21 +1,27 @@
-import { Component, Input, OnChanges, Output, EventEmitter  } from '@angular/core';
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop'
+import { Component, Input, OnChanges, Output, EventEmitter, OnInit } from '@angular/core';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { Task } from 'src/app/models/task.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { User } from 'src/app/models/user.model';
+import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-task-board',
   templateUrl: './task-board.component.html',
   styleUrls: ['./task-board.component.css'],
 })
-export class TaskBoardComponent implements OnChanges {
-  @Input({required: true})tasks: Task[] = [];
+export class TaskBoardComponent implements OnInit, OnChanges {
+  @Input({ required: true }) tasks: Task[] = [];
+  @Input({ required: true }) projectId!: string;
   @Output() onEditTask = new EventEmitter<Task>();
+  filterInput: string = "";
+  selectedUserId: string = "all";
+  availableUsers: User[] = []
 
   todo: Task[] = [];
   doing: Task[] = [];
   done: Task[] = [];
 
-  constructor(private snackbar: MatSnackBar){}
+  constructor(private usersService: UsersService, private snackbar: MatSnackBar) { }
 
   drop(event: CdkDragDrop<Task[]>) {
 
@@ -33,27 +39,45 @@ export class TaskBoardComponent implements OnChanges {
       );
     }
 
-    if(!canBeMoved)
+    if (!canBeMoved)
       this.snackbar.open("You need to assign an user to a task before changing it's status to doing or done", "OK");
   }
 
-  ngOnChanges(){
+  async ngOnInit() {
+    this.availableUsers = await this.usersService.getUsersByProjectId(this.projectId);
+  }
+
+  ngOnChanges() {
     this.initializeBoard();
   }
 
-  onButtonClick(){
+  onButtonClick() {
     console.log("clicked");
   }
 
-  private initializeBoard(){
+  onFilterInputChange() {
+    this.initializeBoard();
+  }
+
+  onUserSelectChange(newValue: string) {
+    this.selectedUserId = newValue;
+    this.initializeBoard();
+  }
+
+  private initializeBoard() {
     const todo: Task[] = [];
     const doing: Task[] = [];
     const done: Task[] = [];
 
-    this.tasks.forEach(t => {
-      if(t.status == "todo")
+    let tasks = this.tasks;
+
+    tasks = this.filterByText(tasks);
+    tasks = this.filterByUser(tasks);
+
+    tasks.forEach(t => {
+      if (t.status == "todo")
         todo.push(t);
-      else if(t.status == "doing")
+      else if (t.status == "doing")
         doing.push(t);
       else
         done.push(t)
@@ -64,14 +88,34 @@ export class TaskBoardComponent implements OnChanges {
     this.done = done;
   }
 
-  private canTaskBeMoved( destination: string, task: Task){
+  private filterByText(tasks: Task[]) {
+    if (this.filterInput.length < 3)
+      return tasks;
+
+    const filterInput = this.filterInput.trim().toLowerCase();
+
+    return tasks.filter(t => t.name.trim().toLowerCase().includes(filterInput));
+  }
+
+  private filterByUser(tasks: Task[]) {
+
+    if (this.selectedUserId === "all")
+      return tasks;
+
+    if (this.selectedUserId === "unassigned")
+      return tasks.filter(t => !t.assignedUserId)
+
+    return tasks.filter(t => t.assignedUserId === this.selectedUserId);
+  }
+
+  private canTaskBeMoved(destination: string, task: Task) {
     return destination === "todo" || !!task.assignedUserId
   }
 
-  private updateTask(task: Task, status: string){
-    if(status === "doing")
+  private updateTask(task: Task, status: string) {
+    if (status === "doing")
       this.setTaskDoing(task);
-    else if(status === "done")
+    else if (status === "done")
       this.setTaskDone(task);
     else
       task.status = "todo";
@@ -79,15 +123,17 @@ export class TaskBoardComponent implements OnChanges {
     this.onEditTask.emit(task);
   }
 
-  private setTaskDoing(task: Task){
-    if(!task.started)
+  private setTaskDoing(task: Task) {
+    if (!task.started)
       task.started = new Date();
-    
+
     task.status = "doing";
   }
 
-  private setTaskDone(task: Task){
+  private setTaskDone(task: Task) {
     task.ended = new Date();
     task.status = "done";
   }
+
+
 }

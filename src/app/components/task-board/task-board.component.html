@@ -1,3 +1,16 @@
+<div class="inputs">
+  <mat-form-field class="table-input">
+      <input matInput type="text" placeholder="Filter" [(ngModel)]="filterInput" (keyup)="onFilterInputChange()">
+  </mat-form-field>
+  <mat-form-field class="table-input">
+      <mat-select name="user" [(ngModel)]="selectedUserId" (valueChange)="onUserSelectChange($event)">
+          <mat-option *ngFor="let user of availableUsers" [value]="user.id">{{user.firstName}} {{user.lastName}}</mat-option>
+          <mat-option value="unassigned">Unassigned</mat-option>
+          <mat-option value="all">All</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+</div>
 <div cdkDropListGroup class="board-container">
     <div class="example-container">
       <h2 class="column-header">To do</h2>

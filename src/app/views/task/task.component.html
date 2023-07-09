@@ -2,7 +2,7 @@
     <form #myForm="ngForm" (ngSubmit)="onSubmit()">
         <div class="column" style="flex: 3">
             <mat-form-field class="form-item">
-                <input matInput type="text" required name="name" [(ngModel)]="task.name" readonly="">
+                <input matInput type="text" required name="name" [value]="task.name" readonly="">
                 <mat-label>Task Name</mat-label>
                 <mat-error>Task Name cannot be empty!</mat-error>
             </mat-form-field>
@@ -19,7 +19,6 @@
                 <mat-label>Expected Work Time (in hours)</mat-label>
             </mat-form-field>
 
-
             <mat-form-field class="form-item">
                 <mat-label>Priority</mat-label>
                 <mat-select [(value)]="task.priority" name="role" required>
@@ -28,6 +27,11 @@
                     <mat-option [value]="3">3: Medium</mat-option>
                     <mat-option [value]="4">4: Low</mat-option>
                 </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-item">
+                <input matInput type="text" required name="name" [value]="createdByName" readonly="">
+                <mat-label>Created By</mat-label>
             </mat-form-field>
 
             <mat-form-field class="form-item">

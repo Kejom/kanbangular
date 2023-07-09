@@ -1,6 +1,6 @@
 <mat-tab-group>
     <mat-tab label="Board">
-      <app-task-board [tasks]="tasks" (onEditTask)="updateTask($event)"></app-task-board>
+      <app-task-board [tasks]="tasks" [projectId]="projectId" (onEditTask)="updateTask($event)"></app-task-board>
     </mat-tab>
     <mat-tab label="Create new Task">
         <app-task-form (onAddTask)="addTask($event)"></app-task-form>
