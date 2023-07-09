@@ -26,7 +26,7 @@ Po zalogowaniu użytkownik ma dostęp do następujących opcji
 
 ![nav_zalogowany](https://github.com/Kejom/kanbangular/assets/44144231/ebfedbc9-c4c0-47ec-9b5f-eb4be9399269)
 
-"Nazwa aktualnie wybranego projektu" widoczna tylko jesli aktualnie został wybrany jakis project, odnośnik poprowadzi użytkownika bezpośrednio do głównej tablicy projektu
+"Nazwa aktualnie wybranego projektu" + "Board" widoczna tylko jesli aktualnie został wybrany jakis project, odnośnik poprowadzi użytkownika bezpośrednio do głównej tablicy projektu
 
 "Projects" miejsce w którym użytkownik widzi projekty do których ma dostęp oraz może wybrać ten w którym aktualnie chce pracować.
 
